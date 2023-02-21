@@ -5,6 +5,9 @@ using UnityEngine;
 public class CakeMovement : MonoBehaviour
 {
     public float moveSpeed = 2f;
+    public float leftBound = -5f;
+    public float rightBound = 5f;
+    private bool moveLeft = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,12 +17,36 @@ public class CakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Move the cake slice left and right
-        moveCake();
-        
+        if(Input.GetKey(KeyCode.Space)){
+            fallDown();
+        }
+        else {
+            // Move the cake slice left and right
+            moveCake();
+        }
     }
 
-    void moveCake() {
+    public void moveCake() {
         // Getting the x position
+        if(moveLeft){
+            if(transform.position.x >= leftBound){
+                transform.position = transform.position + (Vector3.left * moveSpeed) * Time.deltaTime;
+            }
+            else {
+                moveLeft = false;
+            }
+        }
+        else {
+            if(transform.position.x <= rightBound){
+                transform.position = transform.position + (Vector3.right * moveSpeed) * Time.deltaTime;
+            }
+            else {
+                moveLeft = true;
+            }
+        }
+    }
+
+    public void fallDown() {
+        transform.position = transform.position + (Vector3.down * moveSpeed) * Time.deltaTime;
     }
 }
