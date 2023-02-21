@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class CakeMovement : MonoBehaviour
 {
+    public Rigidbody2D myRigidBody;
     public float moveSpeed = 2f;
     public float leftBound = -5f;
     public float rightBound = 5f;
     private bool moveLeft = true;
+    private bool falling = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +19,16 @@ public class CakeMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space)){
-            fallDown();
+        for (int i = 0; i < Input.touchCount; ++i)
+        {
+            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                fallDown();
+            }
         }
-        else {
-            // Move the cake slice left and right
+        // Move the cake slice left and right
+        if(!falling) 
+        {
             moveCake();
         }
     }
@@ -47,6 +54,7 @@ public class CakeMovement : MonoBehaviour
     }
 
     public void fallDown() {
-        transform.position = transform.position + (Vector3.down * moveSpeed) * Time.deltaTime;
+        myRigidBody.gravityScale = 1;
+        falling = true;
     }
 }
