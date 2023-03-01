@@ -7,12 +7,17 @@ public class CakeSpawner : MonoBehaviour
     public GameObject cake;
     private Vector3 newSpawnPoint;
 
+    public int cakeCount;
+
+    public int offset = 10;
+
     // Start is called before the first frame update
     void Start()
     {
         newSpawnPoint = transform.position;
         Instantiate(cake, transform.position, transform.rotation);
-        newSpawnPoint += (Vector3.up / 3);
+        newSpawnPoint += (Vector3.up / offset);
+        Debug.Log(newSpawnPoint);
     }
 
     // Update is called once per frame
@@ -23,7 +28,9 @@ public class CakeSpawner : MonoBehaviour
             if(Input.GetTouch(0).phase == TouchPhase.Began) 
             {
                 Instantiate(cake, newSpawnPoint, transform.rotation);
-                newSpawnPoint += (Vector3.up / 3);
+                cakeCount = GameObject.FindGameObjectsWithTag("Cake").Length;
+                newSpawnPoint += (Vector3.up / offset);
+                Debug.Log(newSpawnPoint);
             }
         }
     }

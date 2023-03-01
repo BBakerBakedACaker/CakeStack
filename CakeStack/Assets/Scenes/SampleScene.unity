@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cake: {fileID: 6384084380133432720, guid: 1110e5c8839964483a9607763ca4dbff, type: 3}
+  offset: 10
 --- !u!4 &1196086805
 Transform:
   m_ObjectHideFlags: 0
